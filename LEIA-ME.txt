@@ -1,0 +1,22 @@
+ANIMESFLIX — AJUSTE DO PLAYER E FALLBACK PARA A PÁGINA ORIGINAL
+
+O que foi atualizado nesta revisão:
+- assistir.php: inclui HLS.js também quando o player inicial é MP4, pois o scraper pode encontrar uma fonte HLS posteriormente.
+- assistir.php: quando todas as fontes falham, não tenta abrir automaticamente um iframe que pode carregar uma página HTTP 404 dentro dele.
+- assistir.php: mostra uma mensagem simples e oferece o link exato da página pública do episódio retornado pelo api_scraper.php.
+- Mantém os botões de tentar novamente, anterior e próximo.
+- conteudos.json mantém 220 episódios de Naruto clássico, 500 de Naruto Shippuden e 1 filme, sem repetição numérica dentro de cada título.
+
+LIMITAÇÃO IMPORTANTE:
+O site de origem lista os episódios, mas informa que os vídeos são hospedados por terceiros. Na verificação realizada em 15/11/2026, os dois players expostos na página do episódio 001 do Naruto clássico responderam HTTP 404. Nenhuma alteração no AnimeFlix consegue restaurar um arquivo que o servidor/CDN de origem não está entregando. Esta revisão evita apresentar o erro técnico bruto e oferece a página pública original como alternativa; ela não fabrica links nem contorna proteções.
+
+REQUISITOS:
+- PHP com cURL habilitado.
+- api_scraper.php e proxy.php na mesma pasta de assistir.php.
+- A hospedagem deve permitir conexões HTTPS de saída para o domínio público de origem.
+
+INSTALAÇÃO:
+1. Faça backup dos arquivos atuais.
+2. Extraia o ZIP mantendo a estrutura de pastas.
+3. Envie/substitua os arquivos mantendo includes/, assets/, config.php e os demais arquivos.
+4. Teste um episódio. Se a origem continuar retornando 404, use o botão "Abrir página original" ou uma fonte de vídeo autorizada que esteja online.

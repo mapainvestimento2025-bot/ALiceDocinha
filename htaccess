@@ -1,0 +1,22 @@
+# .htaccess — AnimeFlix
+# Garante que arquivos PHP sejam processados diretamente
+# e evita que WordPress ou o servidor intercepte as URLs
+
+Options -Indexes
+
+# Se o arquivo .php existir, serve ele diretamente
+<FilesMatch "\.php$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+# Protege arquivos sensíveis
+<FilesMatch "^(conteudos|admins|dados)\.json$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Rewrite: só redireciona se o arquivo/pasta NÃO existir
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
